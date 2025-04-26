@@ -8,11 +8,13 @@ const {
 } = require("../controllers/candidateController");
 const validateRequest = require("../middlewares/validateMiddleware");
 const { validateCandidateData } = require("../utils/validate");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-candidateRouter.get("/view", viewCandidates);
+candidateRouter.get("/view", authMiddleware, viewCandidates);
 
 candidateRouter.post(
   "/add",
+  authMiddleware,
   validateRequest(validateCandidateData),
   addCandidate
 );
